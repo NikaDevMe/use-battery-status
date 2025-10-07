@@ -1,0 +1,48 @@
+{
+  "name": "use-battery-status",
+  "version": "1.0.0",
+  "description": "React hook for accessing battery status information",
+  "author": "Felix Jordan",
+  "license": "MIT",
+  "private": false,
+  "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "keywords": [
+    "react",
+    "hook",
+    "battery",
+    "battery-status",
+    "web-api"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b",
+    "lint": "eslint .",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm run lint"
+  },
+  "dependencies": {
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.36.0",
+    "@types/node": "^24.6.0",
+    "@types/react": "^19.1.16",
+    "@types/react-dom": "^19.1.9",
+    "@vitejs/plugin-react": "^5.0.4",
+    "eslint": "^9.36.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.22",
+    "globals": "^16.4.0",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.45.0",
+    "vite": "^7.1.7"
+  }
+}
