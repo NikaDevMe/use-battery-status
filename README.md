@@ -1,3 +1,5 @@
+![npm version](https://img.shields.io/npm/v/@nikadev/use-battery-status)
+
 # use-battery-status
 
 A React hook for accessing battery status information using the [Web Battery Status API](https://developer.mozilla.org/en-US/docs/Web/API/Battery_Status_API).
