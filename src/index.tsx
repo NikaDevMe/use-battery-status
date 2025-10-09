@@ -75,5 +75,8 @@ export function useBatteryStatus() {
     }
   }, []);
 
-  return { ...batteryStatus, isSupported: !!navigator.getBattery };
+  return {
+    ...batteryStatus,
+    isSupported: !!navigator.getBattery
+  };
 }

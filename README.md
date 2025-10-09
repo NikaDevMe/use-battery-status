@@ -1,73 +1,157 @@
-# React + TypeScript + Vite
+# use-battery-status
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React hook for accessing battery status information using the Web Battery API.
 
-Currently, two official plugins are available:
+## Installation
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install use-battery-status
+# or
+yarn add use-battery-status
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Usage
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```tsx
+import { useBatteryStatus } from 'use-battery-status';
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+function App() {
+  const { 
+    isSupported,
+    level,
+    charging,
+    chargingTime,
+    dischargingTime,
+    error
+  } = useBatteryStatus();
+
+  if (!isSupported) {
+    return <div>Battery API is not supported in your browser</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
+  return (
+    <div>
+      <p>Battery Level: {level * 100}%</p>
+      <p>Charging: {charging ? 'Yes' : 'No'}</p>
+      <p>Time until charged: {chargingTime} seconds</p>
+      <p>Time until empty: {dischargingTime} seconds</p>
+    </div>
+  );
+}
 ```
+
+## API
+
+The `useBatteryStatus` hook returns an object with the following properties:
+
+- `isSupported` (boolean): Indicates if the Battery API is supported in the current browser
+- `level` (number): Current battery level between 0 and 1
+- `charging` (boolean): Whether the device is currently charging
+- `chargingTime` (number): Seconds remaining until battery is fully charged
+- `dischargingTime` (number): Seconds remaining until battery is empty
+- `error` (Error | null): Any error that occurred while accessing the Battery API
+
+## Browser Support
+
+The Battery Status API is supported in most modern browsers. Check [Can I Use](https://caniuse.com/battery-status) for detailed browser support information.
+
+## Example
+
+Check out the [example](./example) directory in this repository for a complete working demo of the hook in action. To run the example:
+
+```bash
+# Clone the repository
+git clone https://github.com/NikaDevMe/use-battery-status.git
+
+# Navigate to example directory
+cd use-battery-status/example
+
+# Install dependencies
+npm install
+
+# Start the development server
+npm run dev
+```
+
+## License
+
+MIT © [Felix Jordan](https://github.com/NikaDevMe)# use-battery-status
+
+A React hook for accessing battery status information using the Web Battery API.
+
+## Installation
+
+```bash
+npm install use-battery-status
+# or
+yarn add use-battery-status
+```
+
+## Usage
+
+```tsx
+import { useBatteryStatus } from 'use-battery-status';
+
+function App() {
+  const { 
+    isSupported,
+    level,
+    charging,
+    chargingTime,
+    dischargingTime
+  } = useBatteryStatus();
+
+  if (!isSupported) {
+    return <div>Battery API is not supported in your browser</div>;
+  }
+
+  return (
+    <div>
+      <p>Battery Level: {level * 100}%</p>
+      <p>Charging: {charging ? 'Yes' : 'No'}</p>
+      <p>Time until charged: {chargingTime} seconds</p>
+      <p>Time until empty: {dischargingTime} seconds</p>
+    </div>
+  );
+}
+```
+
+## API
+
+The `useBatteryStatus` hook returns an object with the following properties:
+
+- `isSupported` (boolean): Indicates if the Battery API is supported in the current browser
+- `level` (number): Current battery level between 0 and 1
+- `charging` (boolean): Whether the device is currently charging
+- `chargingTime` (number): Seconds remaining until battery is fully charged
+- `dischargingTime` (number): Seconds remaining until battery is empty
+
+## Browser Support
+
+The Battery Status API is supported in most modern browsers. Check [Can I Use](https://caniuse.com/battery-status) for detailed browser support information.
+
+## Example
+
+Check out the [example](./example) directory in this repository for a complete working demo of the hook in action. To run the example:
+
+```bash
+# Clone the repository
+git clone https://github.com/NikaDevMe/use-battery-status.git
+
+# Navigate to example directory
+cd use-battery-status/example
+
+# Install dependencies
+npm install
+
+# Start the development server
+npm run dev
+```
+
+## License
+
+MIT © [Felix Jordan](https://github.com/NikaDevMe)
