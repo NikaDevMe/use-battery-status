@@ -10,13 +10,13 @@ interface BatteryManager extends EventTarget {
   chargingTime: number;
   dischargingTime: number;
   level: number;
-  onchargingchange: ((this: BatteryManager, ev: Event) => any) | null;
-  onchargingtimechange: ((this: BatteryManager, ev: Event) => any) | null;
-  ondischargingtimechange: ((this: BatteryManager, ev: Event) => any) | null;
-  onlevelchange: ((this: BatteryManager, ev: Event) => any) | null;
-  addEventListener<K extends keyof BatteryManagerEventMap>(type: K, listener: (this: BatteryManager, ev: BatteryManagerEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+  onchargingchange: ((this: BatteryManager, ev: Event) => void) | null;
+  onchargingtimechange: ((this: BatteryManager, ev: Event) => void) | null;
+  ondischargingtimechange: ((this: BatteryManager, ev: Event) => void) | null;
+  onlevelchange: ((this: BatteryManager, ev: Event) => void) | null;
+  addEventListener<K extends keyof BatteryManagerEventMap>(type: K, listener: (this: BatteryManager, ev: BatteryManagerEventMap[K]) => void, options?: boolean | AddEventListenerOptions): void;
   addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-  removeEventListener<K extends keyof BatteryManagerEventMap>(type: K, listener: (this: BatteryManager, ev: BatteryManagerEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+  removeEventListener<K extends keyof BatteryManagerEventMap>(type: K, listener: (this: BatteryManager, ev: BatteryManagerEventMap[K]) => void, options?: boolean | EventListenerOptions): void;
   removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 

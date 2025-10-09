@@ -5,15 +5,15 @@ A React hook for accessing battery status information using the Web Battery API.
 ## Installation
 
 ```bash
-npm install use-battery-status
+npm install @nikadev/use-battery-status --save
 # or
-yarn add use-battery-status
+yarn add @nikadev/use-battery-status
 ```
 
 ## Usage
 
 ```tsx
-import { useBatteryStatus } from 'use-battery-status';
+import { useBatteryStatus } from '@nikadev/use-battery-status';
 
 function App() {
   const { 
@@ -21,16 +21,11 @@ function App() {
     level,
     charging,
     chargingTime,
-    dischargingTime,
-    error
+    dischargingTime
   } = useBatteryStatus();
 
   if (!isSupported) {
     return <div>Battery API is not supported in your browser</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error.message}</div>;
   }
 
   return (
@@ -53,7 +48,6 @@ The `useBatteryStatus` hook returns an object with the following properties:
 - `charging` (boolean): Whether the device is currently charging
 - `chargingTime` (number): Seconds remaining until battery is fully charged
 - `dischargingTime` (number): Seconds remaining until battery is empty
-- `error` (Error | null): Any error that occurred while accessing the Battery API
 
 ## Browser Support
 
@@ -79,22 +73,22 @@ npm run dev
 
 ## License
 
-MIT © [Felix Jordan](https://github.com/NikaDevMe)# use-battery-status
+MIT © [Felix Jordan](https://github.com/NikaDevMe)# @nikadev/use-battery-status
 
 A React hook for accessing battery status information using the Web Battery API.
 
 ## Installation
 
 ```bash
-npm install use-battery-status
+npm install @nikadev/use-battery-status
 # or
-yarn add use-battery-status
+yarn add @nikadev/use-battery-status
 ```
 
 ## Usage
 
 ```tsx
-import { useBatteryStatus } from 'use-battery-status';
+import { useBatteryStatus } from '@nikadev/use-battery-status';
 
 function App() {
   const { 
