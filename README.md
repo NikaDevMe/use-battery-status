@@ -1,4 +1,4 @@
-![npm version](https://img.shields.io/npm/v/@nikadev/use-battery-status)
+![npm version](https://img.shields.io/npm/v/@nikadev/use-battery-status) [![Live Demo](https://img.shields.io/badge/demo-online-brightgreen)](https://nikadev-use-battery-status.vercel.app/)
 
 # use-battery-status
 
@@ -73,6 +73,8 @@ npm install
 npm run dev
 ```
 
+Or check this [Live Demo](https://nikadev-use-battery-status.vercel.app/).
+
 ## License
 
-MIT © [Felix Jordan](https://github.com/NikaDevMe)# @nikadev/use-battery-status
+MIT © [Felix Jordan](https://github.com/NikaDevMe)
