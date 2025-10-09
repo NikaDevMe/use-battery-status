@@ -1,5 +1,5 @@
 {
-  "name": "use-battery-status",
+  "name": "@nikadev/use-battery-status",
   "version": "1.0.0",
   "description": "React hook for accessing battery status information",
   "author": "Felix Jordan",
@@ -22,15 +22,15 @@
   ],
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b",
+    "build": "rm -rf dist && tsc",
     "lint": "eslint .",
     "prepare": "npm run build",
     "prepublishOnly": "npm run lint"
   },
-  "dependencies": {
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1"
+  "peerDependencies": {
+    "react": ">=16.8.0"
   },
+  "dependencies": {},
   "devDependencies": {
     "@eslint/js": "^9.36.0",
     "@types/node": "^24.6.0",
