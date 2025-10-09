@@ -1,6 +1,6 @@
 # use-battery-status
 
-A React hook for accessing battery status information using the Web Battery API.
+A React hook for accessing battery status information using the [Web Battery Status API](https://developer.mozilla.org/en-US/docs/Web/API/Battery_Status_API).
 
 ## Installation
 
