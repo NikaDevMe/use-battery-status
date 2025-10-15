@@ -1,6 +1,6 @@
 {
   "name": "@nikadev/use-battery-status",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "React hook for accessing battery status information",
   "author": "Felix Jordan",
   "license": "MIT",
