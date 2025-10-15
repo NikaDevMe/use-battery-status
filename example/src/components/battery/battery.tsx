@@ -1,4 +1,4 @@
-import { useBatteryStatus } from "../../../../src/index";
+import { useBatteryStatus } from "@nikadev/use-battery-status";
 import './battery.css';
 
 export function Battery() {

@@ -1,5 +1,19 @@
 import { useSyncExternalStore } from "react";
-import "./types.d";
+
+declare global {
+  interface BatteryManager {
+    charging: boolean;
+    chargingTime: number;
+    dischargingTime: number;
+    level: number;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject): void;
+  }
+
+  interface Navigator {
+    getBattery(): Promise<BatteryManager>;
+  }
+}
 
 // battery status object
 const isSupported = typeof navigator !== 'undefined' && 'getBattery' in navigator;

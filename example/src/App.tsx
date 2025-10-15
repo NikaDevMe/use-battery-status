@@ -1,5 +1,5 @@
 import './App.css';
-import { useBatteryStatus } from "../../src/index";
+import { useBatteryStatus } from "@nikadev/use-battery-status";
 import { FaviconBattery } from './components/favicon-battery/favicon-battery';
 import { Battery } from './components/battery/battery';
 import { useState } from 'react';
