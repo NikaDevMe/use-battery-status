@@ -1,4 +1,5 @@
 import { useSyncExternalStore } from "react";
+import "./types.d";
 
 // battery status object
 const isSupported = typeof navigator !== 'undefined' && 'getBattery' in navigator;
