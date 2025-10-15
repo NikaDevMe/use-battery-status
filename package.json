@@ -30,9 +30,9 @@
   ],
   "scripts": {
     "dev": "vite",
-    "build": "rm -rf dist && tsc",
+    "build": "rm -rf dist && npx tsc",
     "lint": "eslint .",
-    "prepare": "npm run build",
+    "prepare": "npm install && npm run build",
     "prepublishOnly": "npm run lint"
   },
   "peerDependencies": {
