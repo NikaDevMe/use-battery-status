@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@nikadev/use-battery-status": "^1.0.1",
+    "@nikadev/use-battery-status": "file:..",
     "react": "^19.1.1",
     "react-dom": "^19.1.1"
   },
