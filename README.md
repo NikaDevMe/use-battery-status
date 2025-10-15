@@ -1,4 +1,4 @@
-![npm version](https://img.shields.io/npm/v/@nikadev/use-battery-status) [![Live Demo](https://img.shields.io/badge/demo-online-brightgreen)](https://nikadev-use-battery-status.vercel.app/)
+![npm version](https://img.shields.io/npm/v/@nikadev/use-battery-status) [![Live Demo](https://img.shields.io/badge/demo-online-brightgreen)](https://nikadev-use-battery-status.vercel.app/) [![Can I Use Battery API](https://img.shields.io/badge/caniuse-battery%20status-blue)](https://caniuse.com/battery-status)
 
 # use-battery-status
 
@@ -19,6 +19,7 @@ import { useBatteryStatus } from '@nikadev/use-battery-status';
 
 function App() {
   const { 
+    isLoading,
     isSupported,
     level,
     charging,
@@ -28,6 +29,10 @@ function App() {
 
   if (!isSupported) {
     return <div>Battery API is not supported in your browser</div>;
+  }
+
+  if(isLoading) {
+    return <div>Loading Battery data...</div>
   }
 
   return (
@@ -45,6 +50,7 @@ function App() {
 
 The `useBatteryStatus` hook returns an object with the following properties:
 
+- `isLoading` (boolean): Indicates if the Battery data is loaded
 - `isSupported` (boolean): Indicates if the Battery API is supported in the current browser
 - `level` (number): Current battery level between 0 and 1
 - `charging` (boolean): Whether the device is currently charging
@@ -77,4 +83,4 @@ Or check this [Live Demo](https://nikadev-use-battery-status.vercel.app/).
 
 ## License
 
-MIT © [Felix Jordan](https://github.com/NikaDevMe)
+MIT

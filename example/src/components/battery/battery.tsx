@@ -1,4 +1,4 @@
-import { useBatteryStatus } from "@nikadev/use-battery-status";
+import { useBatteryStatus } from "../../../../src/index";
 import './battery.css';
 
 export function Battery() {
@@ -28,8 +28,8 @@ function BatteryText() {
     const { charging, chargingTime, dischargingTime } = useBatteryStatus();
 
     if(charging) {
-        return <span>Charging time: {chargingTime === Infinity ? 'is calculating...' : chargingTime + ' seconds'}</span>;
+        return <span>Charging time: {chargingTime === Infinity ? 'is calculating...' : (chargingTime / 60) + ' minutes'}</span>;
     } else {
-        return <span>Discharging time: {dischargingTime === Infinity ? 'is calculating...' : dischargingTime + ' seconds'}</span>;
+        return <span>Discharging time: {dischargingTime === Infinity ? 'is calculating...' : (dischargingTime / 60) + ' minutes'}</span>;
     }
 }

@@ -1,82 +1,79 @@
-import { useEffect, useRef, useState } from "react";
+import { useSyncExternalStore } from "react";
 
-interface BatteryStatus {
-  charging: boolean;
-  level: number;
-  chargingTime: number;
-  dischargingTime: number;
-}
-
-// Shared singleton instance
+// battery status object
+const isSupported = typeof navigator !== 'undefined' && 'getBattery' in navigator;
 let batteryManager: BatteryManager | null = null;
 
-async function getBatteryManager() {
-  if (!navigator.getBattery) {
-    console.warn("Battery Status API is not supported on this browser.");
-    return null;
-  }
+// last known battery state
+let lastKnownBatteryState = {
+  isLoading: true,
+  isSupported,
+  level: 0,
+  charging: false,
+  chargingTime: Infinity,
+  dischargingTime: Infinity,
+};
 
-  if (!batteryManager) {
+function updateBatteryState(b: BatteryManager) {
+  lastKnownBatteryState = {
+    isLoading: false,
+    isSupported,
+    level: b.level,
+    charging: b.charging,
+    chargingTime: b.chargingTime,
+    dischargingTime: b.dischargingTime,
+  };
+}
+
+async function getBatteryManager() {
+  if(!batteryManager) {
     batteryManager = await navigator.getBattery();
   }
 
   return batteryManager;
 }
 
-export function useBatteryStatus() {
-  const [batteryStatus, setBatteryStatus] = useState<BatteryStatus>({
-    charging: false,
-    level: 0,
-    chargingTime: Infinity,
-    dischargingTime: Infinity
-  });
-  const initialized = useRef(false);
+function subscribeBattery(callback: () => void) {
+  let cleanup: (() => void) | undefined;
 
-  useEffect(() => {
-    let battery: BatteryManager | null = null;
+  async function initialize() {
+    const battery = await getBatteryManager();
+    // init data immediately
+    updateBatteryState(battery);
+    callback(); // ✅ tell React the snapshot changed
 
-    async function initialize() {
-      battery = await getBatteryManager();
-      if (!battery) return;
-
-      // Initial state
-      setBatteryStatus({
-        charging: battery.charging,
-        level: battery.level,
-        chargingTime: battery.chargingTime,
-        dischargingTime: battery.dischargingTime
-      });
-
-      const handleChange = () =>
-        setBatteryStatus({
-          charging: battery!.charging,
-          level: battery!.level,
-          chargingTime: battery!.chargingTime,
-          dischargingTime: battery!.dischargingTime
-        });
-
-      battery.addEventListener("chargingchange", handleChange);
-      battery.addEventListener("levelchange", handleChange);
-      battery.addEventListener("chargingtimechange", handleChange);
-      battery.addEventListener("dischargingtimechange", handleChange);
-
-      return () => {
-        if(!battery) return;
-        battery.removeEventListener("chargingchange", handleChange);
-        battery.removeEventListener("levelchange", handleChange);
-        battery.removeEventListener("chargingtimechange", handleChange);
-        battery.removeEventListener("dischargingtimechange", handleChange);
-      };
+    function handleChange() {
+      updateBatteryState(battery);
+      callback(); // ✅ tell React the snapshot changed
     }
 
-    if (!initialized.current) {
-      initialize();
-      initialized.current = true;
-    }
-  }, []);
+    battery.addEventListener("levelchange", handleChange);
+    battery.addEventListener("chargingchange", handleChange);
+    battery.addEventListener("chargingtimechange", handleChange);
+    battery.addEventListener("dischargingtimechange", handleChange);
 
-  return {
-    ...batteryStatus,
-    isSupported: !!navigator.getBattery
+    cleanup = () => {
+      battery.removeEventListener("levelchange", handleChange);
+      battery.removeEventListener("chargingchange", handleChange);
+      battery.removeEventListener("chargingtimechange", handleChange);
+      battery.removeEventListener("dischargingtimechange", handleChange);
+    };
+  }
+
+  initialize();
+
+  // Return a cleanup function that's safe to call at any time
+  return () => {
+    if (cleanup) {
+      cleanup();
+    }
   };
+}
+
+function getBatterySnapshot() {
+  return lastKnownBatteryState;
+}
+
+export function useBatteryStatus() {
+  return useSyncExternalStore(subscribeBattery, getBatterySnapshot);
 }

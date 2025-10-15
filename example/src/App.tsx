@@ -1,14 +1,22 @@
 import './App.css';
-import { useBatteryStatus } from "@nikadev/use-battery-status";
+import { useBatteryStatus } from "../../src/index";
 import { FaviconBattery } from './components/favicon-battery/favicon-battery';
 import { Battery } from './components/battery/battery';
+import { useState } from 'react';
 
 function App() {
-  const { charging, chargingTime, dischargingTime, level, isSupported } = useBatteryStatus();
+  const { charging, chargingTime, dischargingTime, level, isSupported, isLoading } = useBatteryStatus();
+  const [show, setShow] = useState(true);
 
   if(!isSupported) {
     return (
       <p>Battery Status API is not supported on this browser.</p>
+    )
+  }
+
+  if(isLoading) {
+    return (
+      <p>Loading Battery data...</p>
     )
   }
 
@@ -17,7 +25,9 @@ function App() {
         <h1>Battery Status API</h1>
         <title>useBatteryStatus</title>
         <FaviconBattery/>
-        <Battery/>
+        <button type="button" onClick={() => setShow(prev => !prev )}>Show / Hide</button>
+        
+        {show && <Battery/>}
         <br/>
         <section>
           <p>
